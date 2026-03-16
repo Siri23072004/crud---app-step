@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { itemService } from './services/api';
 import * as Types from './types';
-const { Item } = Types;
 
 function App() {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Types.Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<Item | null>(null);
+  const [editingItem, setEditingItem] = useState<Types.Item | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: 0,
-    category: 'other'
+    category: 'other' as Types.Item['category']
   });
+
+  // ... rest of your component logic remains exactly the same ...
+  // (keep all your existing handlers and JSX)
+}
 
   useEffect(() => {
     fetchItems();
@@ -63,7 +66,7 @@ function App() {
     }
   };
 
-  const handleEdit = (item: Item) => {
+  const handleEdit = (item: Types.Item) => {  // 👈 Types.Item
     setEditingItem(item);
     setFormData({
       name: item.name,
@@ -88,7 +91,12 @@ function App() {
   };
 
   const resetForm = () => {
-    setFormData({ name: '', description: '', price: 0, category: 'other' });
+    setFormData({ 
+      name: '', 
+      description: '', 
+      price: 0, 
+      category: 'other' 
+    });
     setEditingItem(null);
     setShowForm(false);
   };
@@ -115,14 +123,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 relative overflow-hidden">
-      {/* Decorative background blobs */}
+      {/* ... rest of your JSX remains exactly the same ... */}
+      {/* (ನಿಮ್ಮ JSX ಭಾಗವನ್ನು ಬದಲಾಯಿಸುವ ಅಗತ್ಯವಿಲ್ಲ) */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
       
-      {/* Content */}
       <div className="relative z-10">
-        {/* Header with glass effect */}
         <header className="backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-2xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -147,16 +154,13 @@ function App() {
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Error Message */}
           {error && (
             <div className="mb-8 p-4 bg-red-500/80 backdrop-blur-md border border-red-300/30 rounded-2xl text-white shadow-2xl animate-shake">
               <p className="font-medium">❌ {error}</p>
             </div>
           )}
 
-          {/* Form Modal */}
           {showForm && (
             <div className="mb-12 backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl p-8 border border-white/20 transform transition-all duration-500 hover:scale-[1.02]">
               <h2 className="text-4xl font-bold mb-8 text-white drop-shadow-md">
@@ -251,7 +255,6 @@ function App() {
             </div>
           )}
 
-          {/* Items Grid */}
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="relative">
@@ -325,13 +328,11 @@ function App() {
           )}
         </main>
 
-        {/* Footer */}
         <footer className="text-center py-6 text-white/40 text-sm backdrop-blur-sm">
           <p>✨ Built with 💖 using React, TypeScript, Tailwind CSS, Node.js & MongoDB ✨</p>
         </footer>
       </div>
 
-      {/* Custom animations */}
       <style>{`
         @keyframes blob {
           0% { transform: translate(0px, 0px) scale(1); }
