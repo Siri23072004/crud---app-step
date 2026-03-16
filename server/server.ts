@@ -25,7 +25,4 @@ app.get('/', (req, res) => {
   res.send('CRUD API welcomes you');
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default app;
