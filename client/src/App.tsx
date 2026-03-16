@@ -15,10 +15,6 @@ function App() {
     category: 'other' as Types.Item['category']
   });
 
-  // ... rest of your component logic remains exactly the same ...
-  // (keep all your existing handlers and JSX)
-}
-
   useEffect(() => {
     fetchItems();
   }, []);
@@ -50,9 +46,7 @@ function App() {
     try {
       if (editingItem) {
         const updatedItem = await itemService.update(editingItem._id, formData);
-        setItems(prev => prev.map(item => 
-          item._id === editingItem._id ? updatedItem : item
-        ));
+        setItems(prev => prev.map(item => (item._id === editingItem._id ? updatedItem : item)));
         alert('Item updated successfully!');
       } else {
         const newItem = await itemService.create(formData);
@@ -66,7 +60,7 @@ function App() {
     }
   };
 
-  const handleEdit = (item: Types.Item) => {  // 👈 Types.Item
+  const handleEdit = (item: Types.Item) => {
     setEditingItem(item);
     setFormData({
       name: item.name,
@@ -91,12 +85,7 @@ function App() {
   };
 
   const resetForm = () => {
-    setFormData({ 
-      name: '', 
-      description: '', 
-      price: 0, 
-      category: 'other' 
-    });
+    setFormData({ name: '', description: '', price: 0, category: 'other' });
     setEditingItem(null);
     setShowForm(false);
   };
@@ -123,12 +112,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 relative overflow-hidden">
-      {/* ... rest of your JSX remains exactly the same ... */}
-      {/* (ನಿಮ್ಮ JSX ಭಾಗವನ್ನು ಬದಲಾಯಿಸುವ ಅಗತ್ಯವಿಲ್ಲ) */}
+      {/* Animated background blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-      
+
       <div className="relative z-10">
         <header className="backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-2xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -169,9 +157,7 @@ function App() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-white/90">
-                      Name <span className="text-red-300">*</span>
-                    </label>
+                    <label className="block text-sm font-semibold text-white/90">Name <span className="text-red-300">*</span></label>
                     <input
                       type="text"
                       name="name"
@@ -182,11 +168,8 @@ function App() {
                       placeholder="Enter item name"
                     />
                   </div>
-
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-white/90">
-                      Category <span className="text-red-300">*</span>
-                    </label>
+                    <label className="block text-sm font-semibold text-white/90">Category <span className="text-red-300">*</span></label>
                     <select
                       name="category"
                       value={formData.category}
@@ -199,11 +182,8 @@ function App() {
                       <option value="other" className="bg-purple-800">📦 Other</option>
                     </select>
                   </div>
-
                   <div className="space-y-2 md:col-span-2">
-                    <label className="block text-sm font-semibold text-white/90">
-                      Description <span className="text-red-300">*</span>
-                    </label>
+                    <label className="block text-sm font-semibold text-white/90">Description <span className="text-red-300">*</span></label>
                     <textarea
                       name="description"
                       value={formData.description}
@@ -214,11 +194,8 @@ function App() {
                       placeholder="Enter item description"
                     />
                   </div>
-
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-white/90">
-                      Price (₹) <span className="text-red-300">*</span>
-                    </label>
+                    <label className="block text-sm font-semibold text-white/90">Price (₹) <span className="text-red-300">*</span></label>
                     <input
                       type="number"
                       name="price"
@@ -232,23 +209,11 @@ function App() {
                     />
                   </div>
                 </div>
-
                 <div className="flex justify-end gap-4 pt-6 border-t border-white/20">
-                  <button
-                    type="button"
-                    onClick={resetForm}
-                    className="px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl text-white hover:bg-white/30 transition-all duration-200 font-medium"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="group relative px-8 py-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                  >
+                  <button type="button" onClick={resetForm} className="px-6 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-xl text-white hover:bg-white/30 transition-all duration-200 font-medium">Cancel</button>
+                  <button type="submit" className="group relative px-8 py-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                     <span className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-20 rounded-xl blur transition-opacity duration-300"></span>
-                    <span className="relative">
-                      {editingItem ? 'Update Item' : 'Add Item'}
-                    </span>
+                    <span className="relative">{editingItem ? 'Update Item' : 'Add Item'}</span>
                   </button>
                 </div>
               </form>
@@ -280,22 +245,14 @@ function App() {
                 >
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-yellow-200 transition-colors duration-300 drop-shadow-md">
-                        {item.name}
-                      </h3>
+                      <h3 className="text-2xl font-bold text-white group-hover:text-yellow-200 transition-colors duration-300 drop-shadow-md">{item.name}</h3>
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold border shadow-lg ${getCategoryColor(item.category)}`}>
                         {getCategoryLabel(item.category)}
                       </span>
                     </div>
-                    
-                    <p className="text-white/80 mb-4 line-clamp-3 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                    
+                    <p className="text-white/80 mb-4 line-clamp-3 text-sm leading-relaxed">{item.description}</p>
                     <div className="flex justify-between items-center mb-4">
-                      <span className="text-3xl font-bold text-green-300 drop-shadow-lg">
-                        ₹{item.price.toLocaleString('en-IN')}
-                      </span>
+                      <span className="text-3xl font-bold text-green-300 drop-shadow-lg">₹{item.price.toLocaleString('en-IN')}</span>
                       <span className="text-xs text-white/50">
                         {new Date(item.createdAt).toLocaleDateString('en-IN', {
                           year: 'numeric',
@@ -304,21 +261,12 @@ function App() {
                         })}
                       </span>
                     </div>
-                    
                     <div className="flex justify-end gap-3 pt-4 border-t border-white/20">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="group/btn px-4 py-2 bg-white/20 backdrop-blur-md rounded-xl text-white hover:bg-white/30 transition-all duration-200 font-medium flex items-center gap-1"
-                      >
-                        <span className="group-hover/btn:rotate-12 transition-transform duration-200">✏️</span>
-                        Edit
+                      <button onClick={() => handleEdit(item)} className="group/btn px-4 py-2 bg-white/20 backdrop-blur-md rounded-xl text-white hover:bg-white/30 transition-all duration-200 font-medium flex items-center gap-1">
+                        <span className="group-hover/btn:rotate-12 transition-transform duration-200">✏️</span> Edit
                       </button>
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="group/btn px-4 py-2 bg-red-500/30 backdrop-blur-md rounded-xl text-white hover:bg-red-500/40 transition-all duration-200 font-medium flex items-center gap-1"
-                      >
-                        <span className="group-hover/btn:scale-110 transition-transform duration-200">🗑️</span>
-                        Delete
+                      <button onClick={() => handleDelete(item._id)} className="group/btn px-4 py-2 bg-red-500/30 backdrop-blur-md rounded-xl text-white hover:bg-red-500/40 transition-all duration-200 font-medium flex items-center gap-1">
+                        <span className="group-hover/btn:scale-110 transition-transform duration-200">🗑️</span> Delete
                       </button>
                     </div>
                   </div>
