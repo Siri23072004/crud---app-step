@@ -1,5 +1,5 @@
+ import cors from 'cors';
 import express from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db';
 import itemRoutes from './routes/itemRoutes';
