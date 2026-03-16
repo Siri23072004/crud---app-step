@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec ts-node server.ts",
+    "build": "tsc"
+  }
+}
